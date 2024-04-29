@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const formSchema = z.object({
+  IATA: z.string(),
   /** 航班編號 */
   flight: z.string().regex(/^[a-zA-Z0-9]+$/),
   name: z.string().regex(/^[a-zA-Z\s]+$/),

@@ -20,6 +20,7 @@ const FlightItineraryForm = () => {
   const { register, formState } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      IATA: '桃園國際機場 第一航廈',
       flight: '',
       name: '',
       phone: '',
@@ -48,7 +49,13 @@ const FlightItineraryForm = () => {
             {FLIGHT_INFO_FIELDS.map((field) => (
               <FormFieldContainerStyles key={field.name}>
                 <Typography variant="subtitle2">{field.label}</Typography>
-                <TextField {...register(field.name)} error={!!errors[field.name]} size="small" fullWidth />
+                <TextField
+                  {...register(field.name)}
+                  error={!!errors[field.name]}
+                  size="small"
+                  fullWidth
+                  disabled={field.disabled}
+                />
               </FormFieldContainerStyles>
             ))}
 
@@ -56,7 +63,13 @@ const FlightItineraryForm = () => {
             {PASSENGER_INFO_FIELDS.map((field) => (
               <FormFieldContainerStyles key={field.name}>
                 <Typography variant="subtitle2">{field.label}</Typography>
-                <TextField {...register(field.name)} error={!!errors[field.name]} size="small" fullWidth />
+                <TextField
+                  {...register(field.name)}
+                  error={!!errors[field.name]}
+                  size="small"
+                  fullWidth
+                  disabled={field.disabled}
+                />
               </FormFieldContainerStyles>
             ))}
           </FormContainerStyles>
