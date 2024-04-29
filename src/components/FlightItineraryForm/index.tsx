@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { formSchema } from './zodSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, TextField, ThemeProvider, Typography } from '@mui/material';
+import { TextField, ThemeProvider, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import {
   ContainerStyles,
   FormContainerStyles,
@@ -13,11 +14,14 @@ import {
   TitleStyles,
 } from './index.style';
 import { FLIGHT_INFO_FIELDS, PASSENGER_INFO_FIELDS, theme } from './constants';
+import apis from '@/apis';
+import { useState } from 'react';
 
 type FormData = z.infer<typeof formSchema>;
 
 const FlightItineraryForm = () => {
-  const { register, formState } = useForm<FormData>({
+  const [isFetching, setIsFetching] = useState(false);
+  const { register, formState, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       IATA: '桃園國際機場 第一航廈',
@@ -30,14 +34,13 @@ const FlightItineraryForm = () => {
   });
   const { errors } = formState;
 
-  //   const onSubmit = async (data: FormData) => {
-  //     console.log(data);
-  //     await new Promise<void>((resolve) => {
-  //       setTimeout(() => {
-  //         resolve();
-  //       }, 1000);
-  //     });
-  //   };
+  const onSubmit = async (data: FormData) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+    setIsFetching(true);
+    await apis.getAirports('TPE');
+    setIsFetching(false);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -74,9 +77,9 @@ const FlightItineraryForm = () => {
             ))}
           </FormContainerStyles>
         </form>
-        <Button variant="contained" fullWidth>
+        <LoadingButton variant="contained" fullWidth onClick={handleSubmit(onSubmit)} loading={isFetching}>
           下一步
-        </Button>
+        </LoadingButton>
       </ContainerStyles>
     </ThemeProvider>
   );
