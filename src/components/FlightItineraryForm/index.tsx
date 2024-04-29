@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { formSchema } from './zodSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, TextField, ThemeProvider, Typography, createTheme } from '@mui/material';
+import { Button, TextField, ThemeProvider, Typography } from '@mui/material';
 import {
   ContainerStyles,
   FormContainerStyles,
@@ -12,25 +12,9 @@ import {
   FormTitleStyles,
   TitleStyles,
 } from './index.style';
+import { FLIGHT_INFO_FIELDS, PASSENGER_INFO_FIELDS, theme } from './constants';
 
 type FormData = z.infer<typeof formSchema>;
-
-const FLIGHT_INFO_FIELDS = [{ label: '航班編號', name: 'flight' }] as const;
-
-const PASSENGER_INFO_FIELDS = [
-  { label: '姓名', name: 'name' },
-  { label: '電話', name: 'phone' },
-  { label: '身分證字號/護照編號', name: 'id' },
-  { label: '乘車備註', name: 'note' },
-] as const;
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#4A5C6A',
-    },
-  },
-});
 
 const FlightItineraryForm = () => {
   const { register, formState } = useForm<FormData>({
