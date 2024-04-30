@@ -12,6 +12,7 @@ export const ContainerStyles = styled(Box)({
 export const TitleStyles = styled(Typography)({
   fontSize: '20px',
   textAlign: 'center',
+  fontWeight: 'bold',
 });
 
 export const FormContainerStyles = styled(Box)({
