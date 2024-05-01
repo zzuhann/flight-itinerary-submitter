@@ -86,6 +86,7 @@ const FlightItineraryForm = () => {
                   size="small"
                   fullWidth
                   disabled={field.disabled}
+                  placeholder={field.placeholder}
                 />
               </FormFieldContainerStyles>
             ))}
@@ -100,6 +101,7 @@ const FlightItineraryForm = () => {
                   size="small"
                   fullWidth
                   disabled={field.disabled}
+                  placeholder={field.placeholder}
                 />
               </FormFieldContainerStyles>
             ))}
